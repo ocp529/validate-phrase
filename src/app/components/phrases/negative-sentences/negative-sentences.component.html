@@ -28,6 +28,45 @@
                 </form>
             </mat-card>
 
-                </div>
+            <mat-card fxFlex>
+                <mat-card-title fxLayout="row">
+                    <h2 class="mat-h2">Add common nouns and complements</h2>
+                </mat-card-title>
+
+                <form [formGroup]="formCommon" (ngSubmit)="addSentence()">
+                    <mat-card-content>
+                        <div fxLayout="row" fxLayoutGap="70px" fxLayout.xs="column" fxLayoutGap.xs="5px">
+                            <mat-form-field style="margin-right: 15px;" fxFlex.xs appearance="fill">
+                                <mat-label>Type</mat-label>
+                                <mat-select formControlName="type" (selectionChange)="setOptionsValue($event.value)">
+                                    <mat-option>None</mat-option>
+                                    <mat-option value="Common nouns">Common nouns</mat-option>
+                                    <mat-option value="Complements">Complements</mat-option>
+                                    <mat-option value="Nouns">Nouns</mat-option>
+                                </mat-select>                        
+                            </mat-form-field>
+
+                            <mat-form-field fxFlex.xs appearance="fill">
+                                <mat-label>Common nouns / complements</mat-label>
+                                <input type="text" formControlName="sentences" matInput [maxlength]="maxLabelSentence" placeholder="your wallet">
+                            </mat-form-field>
+                            
+                            <div fxLayout="row" fxLayoutGap="5px" fxLayout="column" fxFlex.xs style="margin-bottom: 20px;" *ngIf="this.formCommon.get('type')?.value == 'Nouns' || this.formCommon.get('type')?.value == 'Common nouns'">                                
+                                <mat-radio-group formControlName="options" aria-label="Select an option">
+                                    <mat-radio-button value="Plural">Plural</mat-radio-button>
+                                    <mat-radio-button value="Singular">Singular</mat-radio-button>
+                                </mat-radio-group>
+                            </div>
+
+                            <div fxLayout="row" fxLayoutAlign="end" fxLayoutGap="5px">
+                                <button mat-fab mat-raised-button color="primary" type="submit" matTooltip="Add" [disabled]="formCommon.invalid">
+                                    <mat-icon>add</mat-icon>
+                                </button>
+                            </div>
+                        </div>
+                    </mat-card-content>                    
+                </form>                  
+            </mat-card>
+        </div>
     </mat-drawer-content>
 </mat-drawer-container>
